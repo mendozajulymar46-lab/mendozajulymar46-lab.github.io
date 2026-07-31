@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open the Mail</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --rose-1: #ff7aa2;
+      --rose-2: #ff5f7e;
+      --rose-3: #ffc1d0;
+      --ink: #7d4356;
+      --paper: #fffafc;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.95), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(255,181,198,0.35), transparent 30%),
+        linear-gradient(135deg, #fff7fa 0%, #ffe8ef 45%, #ffdce7 100%);
+      color: var(--ink);
+      padding: 20px;
+    }
+
+    .mail-card {
+      width: min(92vw, 500px);
+      padding: 28px 24px 24px;
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.97), rgba(255,247,250,0.94));
+      box-shadow: 0 24px 50px rgba(107,45,69,0.18);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,95,126,0.12);
+    }
+
+    .mail-card::before {
+      content: "";
+      position: absolute;
+      inset: 9px;
+      border: 1px solid rgba(255, 95, 126, 0.16);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+
+    .mail-card::after {
+      content: "";
+      position: absolute;
+      right: -18px;
+      bottom: -26px;
+      width: 130px;
+      height: 130px;
+      background: radial-gradient(circle, rgba(255,95,126,0.16), transparent 72%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .card-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #c45b75;
+      margin: 0 0 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mail-button {
+      border: none;
+      background: linear-gradient(135deg, var(--rose-1), var(--rose-2));
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(255,77,121,0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mail-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(255,77,121,0.26);
+    }
+
+    .flower-decor {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 84px;
+      height: 84px;
+      opacity: 0.95;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .flower-decor .petal {
+      position: absolute;
+      width: 18px;
+      height: 26px;
+      background: linear-gradient(180deg, #fff7fa, #ff9fb9);
+      border-radius: 999px 999px 10px 10px;
+      left: 50%;
+      top: 5px;
+      margin-left: -9px;
+      transform-origin: bottom center;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.35);
+      opacity: 0.95;
+    }
+
+    .flower-decor .petal:nth-child(1) { transform: rotate(0deg); }
+    .flower-decor .petal:nth-child(2) { transform: rotate(60deg); }
+    .flower-decor .petal:nth-child(3) { transform: rotate(120deg); }
+    .flower-decor .petal:nth-child(4) { transform: rotate(180deg); }
+    .flower-decor .petal:nth-child(5) { transform: rotate(240deg); }
+    .flower-decor .petal:nth-child(6) { transform: rotate(300deg); }
+
+    .flower-decor .center {
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      background: radial-gradient(circle at 30% 30%, #fff2c1 0%, #ffbf5b 100%);
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 6px rgba(210,120,65,0.25);
+    }
+
+    .big-flower {
+      position: absolute;
+      left: 14px;
+      bottom: 8px;
+      width: 96px;
+      height: 96px;
+      opacity: 0.95;
+      pointer-events: none;
+      filter: drop-shadow(0 4px 8px rgba(107,45,69,0.12));
+      z-index: 1;
+    }
+
+    .big-flower .petal {
+      position: absolute;
+      width: 26px;
+      height: 36px;
+      background: linear-gradient(180deg, #fff7fa, #ff8fb4);
+      border-radius: 999px 999px 12px 12px;
+      left: 50%;
+      top: 4px;
+      margin-left: -13px;
+      transform-origin: bottom center;
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.3);
+    }
+
+    .big-flower .petal:nth-child(1) { transform: rotate(0deg); }
+    .big-flower .petal:nth-child(2) { transform: rotate(60deg); }
+    .big-flower .petal:nth-child(3) { transform: rotate(120deg); }
+    .big-flower .petal:nth-child(4) { transform: rotate(180deg); }
+    .big-flower .petal:nth-child(5) { transform: rotate(240deg); }
+    .big-flower .petal:nth-child(6) { transform: rotate(300deg); }
+
+    .big-flower .center {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: radial-gradient(circle at 30% 30%, #fff4c4 0%, #ffbf5b 100%);
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 1px 4px rgba(210,120,65,0.2);
+    }
+
+    .bouquet {
+      position: absolute;
+      left: 6px;
+      bottom: -8px;
+      width: 148px;
+      height: 128px;
+      pointer-events: none;
+      opacity: 0.95;
+      z-index: 1;
+    }
+
+    .bouquet .stem {
+      position: absolute;
+      left: 56px;
+      bottom: 8px;
+      width: 4px;
+      height: 84px;
+      background: linear-gradient(180deg, #6bbf59, #2e8b57);
+      border-radius: 999px;
+      transform-origin: bottom center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    }
+
+    .bouquet .flower {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      filter: drop-shadow(0 3px 6px rgba(107,45,69,0.12));
+      transform: rotate(-8deg);
+    }
+
+    .bouquet .flower::before,
+    .bouquet .flower::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: inherit;
+      transform: rotate(45deg);
+    }
+
+    .bouquet .flower.pink { background: #ff8fb3; }
+    .bouquet .flower.peach { background: #ffc08c; }
+    .bouquet .flower.red { background: #ff5f7e; }
+
+    .bouquet .flower.one { left: 24px; bottom: 24px; transform: rotate(-10deg); }
+    .bouquet .flower.two { left: 52px; bottom: 44px; transform: rotate(6deg); }
+    .bouquet .flower.three { left: 84px; bottom: 24px; transform: rotate(-8deg); }
+    .bouquet .flower.four { left: 40px; bottom: 64px; transform: rotate(12deg); }
+    .bouquet .flower.five { left: 70px; bottom: 74px; transform: rotate(-6deg); }
+
+    .floating-hearts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .floating-hearts .heart {
+      position: absolute;
+      font-size: 1.15rem;
+      color: #ff5f7e;
+      animation: floatHeart 3.5s ease-in-out infinite;
+      opacity: 0.9;
+      text-shadow: 0 2px 4px rgba(255,95,126,0.16);
+    }
+
+    .floating-hearts .heart:nth-child(1) { left: 8%; top: 18%; animation-delay: 0s; }
+    .floating-hearts .heart:nth-child(2) { right: 8%; top: 34%; animation-delay: 1s; }
+    .floating-hearts .heart:nth-child(3) { left: 16%; bottom: 24%; animation-delay: 1.5s; }
+
+    @keyframes floatHeart {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.08); }
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      height: 240px;
+      margin: 20px auto 0;
+      perspective: 1000px;
+      transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+    }
+
+    .envelope .front,
+    .envelope .back {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ff86aa, #ff6080);
+      box-shadow: inset 0 -8px 18px rgba(0,0,0,0.08), 0 10px 18px rgba(107,45,69,0.12);
+      overflow: hidden;
+      backface-visibility: hidden;
+    }
+
+    .envelope .front {
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+      z-index: 2;
+      transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform-origin: top;
+    }
+
+    .envelope .back {
+      background: linear-gradient(135deg, #ff9eb5, #ff6f91);
+      transform: rotateX(180deg);
+      opacity: 0;
+      transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .mail-card.open .envelope {
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    .mail-card.open .front {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .mail-card.open .back {
+      opacity: 1;
+      transform: rotateX(180deg) translateY(-2px);
+    }
+
+    .letter {
+      position: absolute;
+      inset: 22px;
+      background: linear-gradient(180deg, var(--paper), #fff2f7);
+      border-radius: 18px;
+      padding: 24px 22px 20px;
+      box-shadow: inset 0 0 0 1px rgba(107,45,69,0.08), 0 10px 20px rgba(107,45,69,0.08);
+      transform: translateY(18px);
+      opacity: 0;
+      transition: all 0.5s ease 0.15s;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .mail-card.open .letter {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .letter h2 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+      color: #b23a5d;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .letter .signature {
+      margin-top: 12px;
+      font-weight: 700;
+      color: #b23a5d;
+      font-style: italic;
+    }
+
+    .close-button {
+      margin-top: 12px;
+      border: none;
+      background: linear-gradient(135deg, var(--rose-1), var(--rose-2));
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 14px rgba(255,77,121,0.16);
+      align-self: flex-start;
+    }
+
+    .letter p {
+      margin: 0 0 8px;
+      line-height: 1.65;
+      color: #7d4356;
+      font-size: 0.96rem;
+    }
+
+    .heart {
+      font-size: 1.1rem;
+      color: #ff4d79;
+      display: inline-block;
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mail-card" id="mailCard">
+    <p class="card-label">A little surprise for you</p>
+
+    <div class="floating-hearts" aria-hidden="true">
+      <span class="heart">❤</span>
+      <span class="heart">💖</span>
+      <span class="heart">💕</span>
+    </div>
+
+    <div class="flower-decor" aria-hidden="true">
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="center"></span>
+    </div>
+
+    <div class="big-flower" aria-hidden="true">
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="center"></span>
+    </div>
+
+    <div class="bouquet" aria-hidden="true">
+      <div class="stem"></div>
+      <div class="flower pink one"></div>
+      <div class="flower peach two"></div>
+      <div class="flower red three"></div>
+      <div class="flower pink four"></div>
+      <div class="flower peach five"></div>
+    </div>
+
+    <button class="mail-button" id="mailButton" type="button">Open Your Letter</button>
+
+    <div class="envelope" aria-hidden="true">
+      <div class="front"></div>
+      <div class="back"></div>
+      <div class="letter">
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        
+        <h2>My forever, my baby, my greatest love... ❤️</h2>
+        <p>If I had one wish tonight, it wouldn't be for anything in the world except to be in your arms.</p>
+        <p>I'd trade every mile between us just to hold your hand, look into your eyes, and tell you how deeply I love you.</p>
+        <p>Distance has taught me something beautiful—it has shown me that love isn't measured by how close we are, but by how tightly our hearts hold on to each other.</p>
+        <p>Every morning, I wake up wishing you were beside me. Every night, I fall asleep imagining that you're in my arms, listening to your heartbeat, feeling your warmth, and whispering "I love you" until we both drift off to sleep.</p>
+        <p>I miss you in ways I can't even explain.</p>
+        <p>I miss your voice when the day feels long, your smile when I need comfort, and your presence in every moment that would be better if you were here.</p>
+        <p>You have become the most beautiful part of my life. You are the person I want to tell everything to, the one I pray for every day, and the one I want to build my future with. No matter how busy life gets or how difficult the distance becomes, my heart will always find its way back to you. It has always been you, and I hope it will always be you.</p>
+        <p>Sometimes I close my eyes and imagine our first hug after all this waiting. I imagine running into your arms, holding you so tightly that neither of us wants to let go. I imagine looking at you with tears of happiness because, after all the calls, messages, waiting, and missing each other, you're finally there. I think that moment will make every lonely night worth it.</p>
+        <p>Please never doubt my love, not even for a second. If the stars disappeared from the sky, if the world became quiet, and if everything else changed, one thing would remain the same—my heart would still choose you. Again and again. Every single day.</p>
+        <p>I promise to love you when the days are easy and when they're hard. I promise to stay, to listen, to support you, and to keep believing in us. I will keep counting down the days until I can finally kiss your forehead, hold your hand without letting go, and remind you face to face that you are the love I have always prayed for.</p>
+        <p>Until that day comes, carry my heart with you, because it already belongs to you. No distance can steal what we have, and no amount of time can ever make me love you less.</p>
+        <p>I love you more than words could ever express, more than the miles between us, more than yesterday, and less than tomorrow—because every new day, my heart finds another reason to fall even more deeply in love with you.</p>
+        <p></p>
+        <p class="heart">❤ You are my everything, my Baby</p>
+        <p class="signature">Forever yours, no matter the distance. ❤️🥹✨</p>
+        <button class="close-button" id="closeButton" type="button">Close the Letter</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const mailCard = document.getElementById('mailCard');
+    const mailButton = document.getElementById('mailButton');
+    const closeButton = document.getElementById('closeButton');
+
+    function setMailState(open) {
+      mailCard.classList.toggle('open', open);
+      mailButton.textContent = open ? 'Close the Letter' : 'Open Your Letter';
+      mailButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    mailButton.addEventListener('click', () => {
+      const open = !mailCard.classList.contains('open');
+      setMailState(open);
+    });
+
+    closeButton.addEventListener('click', () => {
+      setMailState(false);
+    });
+  </script>
+</body>
+</html>
