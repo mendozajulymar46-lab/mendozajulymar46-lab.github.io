@@ -109,13 +109,13 @@
       position: absolute;
       width: 18px;
       height: 26px;
-      background: linear-gradient(180deg, #fff7fa, #ff9fb9);
-      border-radius: 999px 999px 10px 10px;
+      background: linear-gradient(145deg, #fff8fb 0%, #ffb0c6 45%, #ff8ca8 100%);
+      border-radius: 999px 999px 12px 12px;
       left: 50%;
-      top: 5px;
+      top: 4px;
       margin-left: -9px;
       transform-origin: bottom center;
-      box-shadow: inset 0 2px 4px rgba(255,255,255,0.35);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.35), 0 2px 4px rgba(179,64,95,0.12);
       opacity: 0.95;
     }
 
@@ -128,14 +128,14 @@
 
     .flower-decor .center {
       position: absolute;
-      width: 17px;
-      height: 17px;
-      background: radial-gradient(circle at 30% 30%, #fff2c1 0%, #ffbf5b 100%);
+      width: 18px;
+      height: 18px;
+      background: radial-gradient(circle at 30% 30%, #fff4c5 0%, #ffbf5b 100%);
       border-radius: 50%;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      box-shadow: 0 2px 6px rgba(210,120,65,0.25);
+      box-shadow: 0 2px 6px rgba(210,120,65,0.25), inset 0 1px 2px rgba(255,255,255,0.45);
     }
 
     .big-flower {
@@ -152,15 +152,15 @@
 
     .big-flower .petal {
       position: absolute;
-      width: 26px;
-      height: 36px;
-      background: linear-gradient(180deg, #fff7fa, #ff8fb4);
-      border-radius: 999px 999px 12px 12px;
+      width: 28px;
+      height: 38px;
+      background: linear-gradient(145deg, #fffafc 0%, #ffc2d5 45%, #ff8fb5 100%);
+      border-radius: 999px 999px 14px 14px;
       left: 50%;
-      top: 4px;
-      margin-left: -13px;
+      top: 3px;
+      margin-left: -14px;
       transform-origin: bottom center;
-      box-shadow: inset 0 2px 4px rgba(255,255,255,0.3);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.34), 0 3px 6px rgba(179,64,95,0.14);
     }
 
     .big-flower .petal:nth-child(1) { transform: rotate(0deg); }
@@ -174,24 +174,72 @@
       position: absolute;
       width: 24px;
       height: 24px;
-      background: radial-gradient(circle at 30% 30%, #fff4c4 0%, #ffbf5b 100%);
+      background: radial-gradient(circle at 30% 30%, #fff5c7 0%, #ffbf5b 100%);
       border-radius: 50%;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      box-shadow: 0 1px 4px rgba(210,120,65,0.2);
+      box-shadow: 0 2px 5px rgba(210,120,65,0.2), inset 0 1px 2px rgba(255,255,255,0.45);
     }
 
     .bouquet {
       position: absolute;
-      left: 6px;
-      bottom: -8px;
+      left: -2px;
+      bottom: -12px;
       width: 148px;
       height: 128px;
       pointer-events: none;
       opacity: 0.95;
       z-index: 1;
     }
+
+    .side-bouquet {
+      position: absolute;
+      right: 6px;
+      top: 38px;
+      width: 92px;
+      height: 92px;
+      pointer-events: none;
+      opacity: 0.92;
+      z-index: 1;
+      transform: rotate(10deg);
+    }
+
+    .side-bouquet .stem {
+      position: absolute;
+      left: 44px;
+      bottom: 4px;
+      width: 3px;
+      height: 58px;
+      background: linear-gradient(180deg, #6bbf59, #2e8b57);
+      border-radius: 999px;
+    }
+
+    .side-bouquet .flower {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.24), 0 2px 4px rgba(179,64,95,0.12);
+    }
+
+    .side-bouquet .flower::before,
+    .side-bouquet .flower::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: inherit;
+      transform: rotate(45deg);
+    }
+
+    .side-bouquet .flower.pink { background: linear-gradient(145deg, #ffd8e6 0%, #ff8fb3 100%); }
+    .side-bouquet .flower.peach { background: linear-gradient(145deg, #ffe7c7 0%, #ffc08c 100%); }
+    .side-bouquet .flower.red { background: linear-gradient(145deg, #ffd3dc 0%, #ff5f7e 100%); }
+
+    .side-bouquet .flower.one { left: 20px; bottom: 22px; }
+    .side-bouquet .flower.two { left: 40px; bottom: 38px; }
+    .side-bouquet .flower.three { left: 52px; bottom: 18px; }
 
     .bouquet .stem {
       position: absolute;
@@ -212,6 +260,7 @@
       border-radius: 50%;
       filter: drop-shadow(0 3px 6px rgba(107,45,69,0.12));
       transform: rotate(-8deg);
+      box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), 0 3px 6px rgba(179,64,95,0.14);
     }
 
     .bouquet .flower::before,
@@ -222,17 +271,18 @@
       border-radius: 50%;
       background: inherit;
       transform: rotate(45deg);
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.22);
     }
 
-    .bouquet .flower.pink { background: #ff8fb3; }
-    .bouquet .flower.peach { background: #ffc08c; }
-    .bouquet .flower.red { background: #ff5f7e; }
+    .bouquet .flower.pink { background: linear-gradient(145deg, #ffd8e6 0%, #ff8fb3 100%); }
+    .bouquet .flower.peach { background: linear-gradient(145deg, #ffe7c7 0%, #ffc08c 100%); }
+    .bouquet .flower.red { background: linear-gradient(145deg, #ffd3dc 0%, #ff5f7e 100%); }
 
-    .bouquet .flower.one { left: 24px; bottom: 24px; transform: rotate(-10deg); }
-    .bouquet .flower.two { left: 52px; bottom: 44px; transform: rotate(6deg); }
-    .bouquet .flower.three { left: 84px; bottom: 24px; transform: rotate(-8deg); }
-    .bouquet .flower.four { left: 40px; bottom: 64px; transform: rotate(12deg); }
-    .bouquet .flower.five { left: 70px; bottom: 74px; transform: rotate(-6deg); }
+    .bouquet .flower.one { left: 22px; bottom: 24px; transform: rotate(-10deg); }
+    .bouquet .flower.two { left: 48px; bottom: 40px; transform: rotate(6deg); }
+    .bouquet .flower.three { left: 80px; bottom: 24px; transform: rotate(-8deg); }
+    .bouquet .flower.four { left: 36px; bottom: 60px; transform: rotate(12deg); }
+    .bouquet .flower.five { left: 66px; bottom: 70px; transform: rotate(-6deg); }
 
     .floating-hearts {
       position: absolute;
@@ -252,6 +302,15 @@
     .floating-hearts .heart:nth-child(1) { left: 8%; top: 18%; animation-delay: 0s; }
     .floating-hearts .heart:nth-child(2) { right: 8%; top: 34%; animation-delay: 1s; }
     .floating-hearts .heart:nth-child(3) { left: 16%; bottom: 24%; animation-delay: 1.5s; }
+    .floating-hearts .heart:nth-child(4) { left: 22%; top: 8%; animation-delay: 0.4s; }
+    .floating-hearts .heart:nth-child(5) { right: 16%; top: 12%; animation-delay: 1.2s; }
+    .floating-hearts .heart:nth-child(6) { left: 6%; bottom: 14%; animation-delay: 1.8s; }
+    .floating-hearts .heart:nth-child(7) { right: 14%; bottom: 14%; animation-delay: 0.8s; }
+    .floating-hearts .heart:nth-child(8) { left: 30%; top: 28%; animation-delay: 2s; }
+    .floating-hearts .heart:nth-child(9) { right: 30%; bottom: 32%; animation-delay: 1.4s; }
+    .floating-hearts .heart:nth-child(10) { left: 44%; top: 12%; animation-delay: 0.6s; }
+    .floating-hearts .heart:nth-child(11) { left: 50%; top: 4%; animation-delay: 0.2s; }
+    .floating-hearts .heart:nth-child(12) { right: 42%; top: 20%; animation-delay: 1.6s; }
 
     @keyframes floatHeart {
       0%, 100% { transform: translateY(0) scale(1); }
@@ -372,6 +431,91 @@
       display: inline-block;
       margin-top: 2px;
     }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .mail-card {
+        width: min(96vw, 100%);
+        padding: 20px 16px 16px;
+        border-radius: 24px;
+      }
+
+      .card-label {
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        margin-bottom: 10px;
+      }
+
+      .mail-button {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+      }
+
+      .flower-decor {
+        width: 64px;
+        height: 64px;
+        top: 10px;
+        right: 10px;
+      }
+
+      .big-flower {
+        width: 72px;
+        height: 72px;
+        left: 8px;
+        bottom: 6px;
+      }
+
+      .bouquet {
+        width: 112px;
+        height: 100px;
+        left: 2px;
+        bottom: -6px;
+      }
+
+      .bouquet .stem {
+        left: 44px;
+        height: 72px;
+      }
+
+      .bouquet .flower {
+        width: 26px;
+        height: 26px;
+      }
+
+      .bouquet .flower.one { left: 16px; bottom: 18px; }
+      .bouquet .flower.two { left: 40px; bottom: 34px; }
+      .bouquet .flower.three { left: 66px; bottom: 18px; }
+      .bouquet .flower.four { left: 28px; bottom: 50px; }
+      .bouquet .flower.five { left: 54px; bottom: 58px; }
+
+      .envelope {
+        max-width: 100%;
+        height: 220px;
+        margin-top: 16px;
+      }
+
+      .letter {
+        inset: 18px;
+        padding: 16px 14px 14px;
+      }
+
+      .letter h2 {
+        font-size: 1rem;
+      }
+
+      .letter p {
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      .close-button {
+        padding: 7px 11px;
+        font-size: 0.85rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -382,6 +526,15 @@
       <span class="heart">❤</span>
       <span class="heart">💖</span>
       <span class="heart">💕</span>
+      <span class="heart">💗</span>
+      <span class="heart">💞</span>
+      <span class="heart">💘</span>
+      <span class="heart">💝</span>
+      <span class="heart">💓</span>
+      <span class="heart">💖</span>
+      <span class="heart">❤</span>
+      <span class="heart">💗</span>
+      <span class="heart">💞</span>
     </div>
 
     <div class="flower-decor" aria-hidden="true">
@@ -413,12 +566,31 @@
       <div class="flower peach five"></div>
     </div>
 
+    <div class="side-bouquet" aria-hidden="true">
+      <div class="stem"></div>
+      <div class="flower pink one"></div>
+      <div class="flower peach two"></div>
+      <div class="flower red three"></div>
+    </div>
+
     <button class="mail-button" id="mailButton" type="button">Open Your Letter</button>
 
     <div class="envelope" aria-hidden="true">
       <div class="front"></div>
       <div class="back"></div>
       <div class="letter">
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
         <br><br>
         <br><br>
         <br><br>
